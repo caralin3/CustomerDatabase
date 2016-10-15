@@ -16,7 +16,6 @@ public class ServedTable {
                     + "servedId INT,"
                     + "PRIMARY KEY (servedId),"
                     + "FOREIGN KEY(customerId) REFERENCES customer(customerId)"
-                    //TODO: Fix missing customerId column
                     + ");";
             stmt = conn.createStatement();
             stmt.execute(query);
