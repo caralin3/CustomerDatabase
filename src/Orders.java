@@ -1,13 +1,13 @@
 /**
- *
+ * file: Orders.java
  */
 public class Orders {
     private int orderId;
     private String foodItem;
 
-    public Orders(String foodItem) {
-        this.foodItem = foodItem;
-    }
+    //    public Orders(String foodItem) {
+//        this.foodItem = foodItem;
+//    }
     public Orders(int orderId, String foodItem) {
         this.orderId = orderId;
         this.foodItem = foodItem;

@@ -3,18 +3,18 @@
  */
 public class Served {
     private int servedId;
-    private Customer customer;
+    private int customerId;
 
-    public Served(int servedId, Customer customer) {
+    public Served(int servedId, int customerId) {
         this.servedId = servedId;
-        this.customer = customer;
+        this.customerId = customerId;
     }
 
     public int getServedId() {
         return servedId;
     }
 
-    public Customer getCustomer() {
-        return customer;
+    public int getCustomer() {
+        return customerId;
     }
 }

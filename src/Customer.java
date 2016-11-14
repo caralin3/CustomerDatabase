@@ -1,30 +1,37 @@
 /**
- *
+ * file: Customer.java
  */
 public class Customer {
     private int customerId;
     private String firstName;
     private String lastName;
-    private Orders orders;
+    private String foodItem;
+    private int orderId;
 
-    public Customer(int customerId, String firstName, String lastName, Orders orders) {
+    public Customer(int customerId, String firstName, String lastName, String foodItem) {
         this.customerId = customerId;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.orders = orders;
+        this.foodItem = foodItem;
+    }
+
+    public int getCustomerId() {
+        return customerId;
     }
 
     public String getFirstName() {
         return firstName;
     }
 
-    public String getLastName() { return lastName; }
-
-    public Orders getOrders() {
-        return orders;
+    public String getLastName() {
+        return lastName;
     }
 
-    public int getCustomerId() {
-        return customerId;
+    public String getFoodItem() {
+        return foodItem;
     }
+
+//    public int getOrderId() {
+//        return orderId;
+//    }
 }
