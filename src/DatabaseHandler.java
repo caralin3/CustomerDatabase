@@ -1,5 +1,4 @@
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -54,6 +53,19 @@ public class DatabaseHandler {
         }
     }
 
+    public static int generateNumber(int num)
+    {
+        // 3 random numbers generated, if first[rand1] and last[rand2] not in database, add them to
+        //int[] rand = new int[3];
+        Random rn = new Random();
+
+        if(num == 0)
+            return rn.nextInt(50);
+        else if(num == 1)
+            return rn.nextInt(100);
+        else
+            return 0;
+    }
 
     public static void main(String[] args) {
         DatabaseHandler db = new DatabaseHandler();
@@ -96,15 +108,6 @@ public class DatabaseHandler {
                 "Milkshake", "Muffin", "Omelet", "Pancakes", "Panini", "Pasta", "Pie", "Pizza", "Pork",
                 "Potatoes", "Pudding", "Quesadilla", "Ravioli", "Rice", "Root Beer Float", "Salad", "Sandwich",
                 "Scone", "Shrimp", "Soup", "Steak", "Stir fry", "Taco", "Toast", "Turkey", "Waffles", "Watermelon"};
-
-        // 3 random numbers generated, if first[rand1] and last[rand2] not in database, add them to
-        int[] rand = new int[3];
-        Random rn = new Random();
-        rand[0] = rn.nextInt(50);
-        rand[1] = rn.nextInt(100);
-        rand[2] = rn.nextInt(100);
-
-
         try {
             Statement stmt;
 //            System.out.println("Deleting table in given database...");
@@ -114,26 +117,35 @@ public class DatabaseHandler {
 //
 //            stmt.executeUpdate(sql);
 //            System.out.println("Table  deleted in given database...");
+
+
             // Creating tables
             CustomerTable.createCustomerTable(db.getConnection());
             OrdersTable.createOrdersTable(db.getConnection());
             ServedTable.createServedTable(db.getConnection());
 
-            OrdersTable.addOrder(db.getConnection(), 1, foodItems[rand[0]]);
-            OrdersTable.addOrder(db.getConnection(), 2, "Pasta");
-            OrdersTable.addOrder(db.getConnection(), 3, "Pizza");
+            int x = 1;
+            String tempFirstName;
+            String tempLastName;
+            String tempOrder;
+//            while(x < 100) {
+                tempOrder = foodItems[generateNumber(0)];
+                tempFirstName = firstNames[generateNumber(1)];
+                tempLastName = lastNames[generateNumber(1)];
 
-            CustomerTable.addCustomer(db.getConnection(), 1, firstNames[rand[1]], lastNames[rand[2]], foodItems[rand[0]]);
-            CustomerTable.addCustomer(db.getConnection(), 2, "Frank", "Cassidy", "Pizza");
-            CustomerTable.addCustomer(db.getConnection(), 3, "Danny", "Coleman", "Pasta");
+                OrdersTable.addOrder(db.getConnection(), x, tempOrder);
 
-            System.out.println("Serving customer...");
-            ServedTable.addServedCustomer(db.getConnection(), 1, firstNames[rand[1]], lastNames[rand[2]],foodItems[rand[0]]);
+                CustomerTable.addCustomer(db.getConnection(), x, tempFirstName, tempLastName, tempOrder);
 
-            CustomerTable.printCustomerTable(db.getConnection());
-            OrdersTable.printOrdersTable(db.getConnection());
-            ServedTable.printServedTable(db.getConnection());
+                System.out.println("Serving customer...");
+                ServedTable.addServedCustomer(db.getConnection(), x, tempFirstName, tempLastName, tempOrder);
 
+                CustomerTable.printCustomerTable(db.getConnection());
+                OrdersTable.printOrdersTable(db.getConnection());
+                ServedTable.printServedTable(db.getConnection());
+
+                x++;
+//            }
             System.out.println("Deleting records...");
             ServedTable.deleteAllServedCustomer(db.getConnection());
             CustomerTable.deleteAllCustomer(db.getConnection());
